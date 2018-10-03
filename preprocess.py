@@ -40,7 +40,7 @@ def save_data_to_array(path=DATA_PATH, bin_path=DATA_BIN_PATH, max_len=11):
 	
 		# If the mfcc already exists
 		if os.path.isfile(bin_path + label + '.npy'):
-			print("mfcc for " + label + "already processed")
+			print("mfcc for " + label + " already processed")
 		else:
 			print("Generating mfcc for " + label)
 		    # Init mfcc vectors
