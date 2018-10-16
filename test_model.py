@@ -21,10 +21,9 @@ loaded_model = keras.models.model_from_json(loaded_model_json)
 # Load weights into new model
 loaded_model.load_weights("bin/model.h5")
 print("Loaded model from disk")
- 
+
 # evaluate loaded model on test data
 loaded_model.compile(optimizer=tf.train.AdamOptimizer(), loss='binary_crossentropy', metrics=['accuracy'])
-
 
 # Getting the MFCC
 sample = wav2mfcc('./data/on/0a9f9af7_nohash_1.wav')
