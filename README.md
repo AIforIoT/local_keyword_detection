@@ -1,6 +1,6 @@
 # Local Speech to word Neural Net - Tensorflow
 
-This repository contains the source code to build the local Neural Net for the speech to word problem.
+This repository contains the source code to build the local Neural Net for the word speech recognition.
 The code is capable of understanding one wav file including one of the words in /data folder.
 
 ## Getting Started
@@ -24,5 +24,5 @@ librosa
 To compile and run the Nerual Network type on your command line:
 
 ```
-python text_classification_model.py --model_version X /output-dir
+python3 test_model.py "path-to-wav-file"
 ```
