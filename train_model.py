@@ -1,15 +1,17 @@
-from preprocess import *
+from utils import preprocess
 import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D
 from keras.utils import to_categorical
+import tensorflow as tf
 
 import os
 
 # Import the wav files to mfcc vector
-save_data_to_array()
-X_train, X_test, y_train, y_test = get_train_test()
+preprocess.save_data_to_array()
+X_train, X_test, y_train, y_test = preprocess.get_train_test()
 numWords = len(os.listdir('./data/'))
+print(numWords)
 
 X_train = X_train.reshape(X_train.shape[0], 20, 11, 1)
 X_test = X_test.reshape(X_test.shape[0], 20, 11, 1)
@@ -23,12 +25,14 @@ model.add(Dropout(0.25))
 model.add(Flatten())
 model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.25))
-model.add(Dense(numWords, activation='softmax'))
-model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.Adadelta(),
-              metrics=['accuracy'])
+model.add(Dense(numWords, activation='sigmoid'))
+#model.compile(loss=keras.losses.categorical_crossentropy,
+#              optimizer=keras.optimizers.Adadelta(),
+#              metrics=['accuracy'])
 
-history = model.fit(X_train, y_train_hot, batch_size=100, epochs=10, verbose=1, validation_data=(X_test, y_test_hot))
+model.compile(optimizer=keras.optimizers.Adadelta(), loss='binary_crossentropy', metrics=['accuracy']);
+
+history = model.fit(X_train, y_train_hot, batch_size=100, epochs=200, verbose=1, validation_data=(X_test, y_test_hot))
 
 # Serialize model to JSON
 model_json = model.to_json()

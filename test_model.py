@@ -26,8 +26,8 @@ print("Loaded model from disk")
 loaded_model.compile(optimizer=tf.train.AdamOptimizer(), loss='binary_crossentropy', metrics=['accuracy'])
 
 # Getting the MFCC
-sample = wav2mfcc('./data/on/0a9f9af7_nohash_1.wav')
-#sample = wav2mfcc('./house.wav')
+sample = wav2mfcc(sys.argv[1])
+
 # We need to reshape it remember?
 sample_reshaped = sample.reshape(1, 20, 11, 1)
 
@@ -37,4 +37,3 @@ print(get_labels()[0])
 
 # Print the labels, position 0 is the label list. Argmax is the most likely.
 print(get_labels()[0][np.argmax(loaded_model.predict(sample_reshaped))])
-# Output: 'happy'

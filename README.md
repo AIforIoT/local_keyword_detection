@@ -1,6 +1,6 @@
 # Local Speech to word Neural Net - Tensorflow
 
-This repository contains the source code to build the local Neural Net for the word speech recognition.
+This repository contains the source code to build the local Neural Net for the iouti speech recognition.
 The code is capable of understanding one wav file including one of the words in /data folder.
 
 ## Getting Started
