@@ -26,9 +26,6 @@ model.add(Flatten())
 model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.25))
 model.add(Dense(numWords, activation='sigmoid'))
-#model.compile(loss=keras.losses.categorical_crossentropy,
-#              optimizer=keras.optimizers.Adadelta(),
-#              metrics=['accuracy'])
 
 model.compile(optimizer=keras.optimizers.Adadelta(), loss='binary_crossentropy', metrics=['accuracy']);
 
