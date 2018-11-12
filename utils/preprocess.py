@@ -1,8 +1,9 @@
 import librosa
 import os
-from sklearn.model_selection import train_test_split
-from keras.utils import to_categorical
 import numpy as np
+
+from sklearn.model_selection import train_test_split
+#from keras.utils import to_categorical
 from tqdm import tqdm
 
 DATA_PATH = "./data/"
@@ -13,7 +14,8 @@ DATA_BIN_PATH = "./bin/data/"
 def get_labels(path=DATA_PATH):
 	labels = os.listdir(path)
 	label_indices = np.arange(0, len(labels))
-	return labels, label_indices, to_categorical(label_indices)
+	#return labels, label_indices, to_categorical(label_indices)
+	return labels, label_indices, 1
 
 
 # Handy function to convert wav2mfcc
