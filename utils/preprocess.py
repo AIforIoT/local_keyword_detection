@@ -3,19 +3,17 @@ import os
 import numpy as np
 
 from sklearn.model_selection import train_test_split
-#from keras.utils import to_categorical
 from tqdm import tqdm
 
-DATA_PATH = "./data/"
-DATA_BIN_PATH = "./bin/data/"
+DATA_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../data/")
+DATA_BIN_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../bin/data/")
 
 # Input: Folder Path
 # Output: Tuple (Label, Indices of the labels, one-hot encoded labels)
 def get_labels(path=DATA_PATH):
-	labels = os.listdir(path)
-	label_indices = np.arange(0, len(labels))
-	#return labels, label_indices, to_categorical(label_indices)
-	return labels, label_indices, 1
+    labels = os.listdir(path)
+    label_indices = np.arange(0, len(labels))
+    return labels, label_indices
 
 
 # Handy function to convert wav2mfcc
@@ -37,26 +35,25 @@ def wav2mfcc(file_path, max_len=11):
 
 
 def save_data_to_array(path=DATA_PATH, bin_path=DATA_BIN_PATH, max_len=11):
-	labels, _, _ = get_labels(path)
-	for label in labels:
-	
-		# If the mfcc already exists
-		if os.path.isfile(bin_path + label + '.npy'):
-			print("mfcc for " + label + " already processed")
-		else:
-			print("Generating mfcc for " + label)
-			mfcc_vectors = []
-
-			wavfiles = [path + label + '/' + wavfile for wavfile in os.listdir(path + '/' + label)]
-			for wavfile in tqdm(wavfiles, "Saving vectors of label - '{}'".format(label)):
-				mfcc = wav2mfcc(wavfile, max_len=max_len)
-				mfcc_vectors.append(mfcc)
-			np.save(bin_path + label + '.npy', mfcc_vectors)
-
+    labels, _ = get_labels(path)
+    for label in labels:
+        # If the mfcc already exists
+        if os.path.isfile(bin_path + label + '.npy'):
+            print("mfcc for " + label + " already processed")
+        else:
+            print("Generating mfcc for " + label)
+            
+            mfcc_vectors = []
+            wavfiles = [path + label + '/' + wavfile for wavfile in os.listdir(path + '/' + label)]
+            
+            for wavfile in tqdm(wavfiles, "Saving vectors of label - '{}'".format(label)):
+                mfcc = wav2mfcc(wavfile, max_len=max_len)
+                mfcc_vectors.append(mfcc)
+                np.save(bin_path + label + '.npy', mfcc_vectors)
 
 def get_train_test(bin_path=DATA_BIN_PATH, split_ratio=0.6, random_state=42):
     # Get available labels
-    labels, indices, _ = get_labels(DATA_PATH)
+    labels, indices = get_labels(DATA_PATH)
 
     # Getting first arrays
     X = np.load(bin_path + labels[0] + '.npy')
@@ -75,7 +72,7 @@ def get_train_test(bin_path=DATA_BIN_PATH, split_ratio=0.6, random_state=42):
 
 
 def prepare_dataset(path=DATA_PATH):
-    labels, _, _ = get_labels(path)
+    labels, _ = get_labels(path)
     data = {}
     for label in labels:
         data[label] = {}
