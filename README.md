@@ -15,15 +15,21 @@ The libraries you must have to run this NN are:
 ```
 Python 3
 Tensorflow
-H5py
+h5py
 tqdm
 librosa
 ```
 
 ### Usage
 
-To compile and run the Nerual Network type on your command line:
+This package can be used by importing the library:
 
 ```
-python3 test_model.py "path-to-wav-file"
+from local_keyword_detection import detect_keyword as dk
+```
+
+To detect the wav file if the word is the key word:
+
+```
+word = dk.detect(AUDIO_FILE)
 ```
