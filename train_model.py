@@ -33,9 +33,9 @@ def train(PATH):
 
     # Serialize model to JSON
     model_json = model.to_json()
-    with open(PATH+"bin/model.json", "w") as json_file:
+    with open(PATH+"/bin/model.json", "w") as json_file:
             json_file.write(model_json)
 
     # Serialize weights to HDF5
-    model.save_weights(PATH+"bin/model.h5")
+    model.save_weights(PATH+"/bin/model.h5")
     print("Saved model to disk")
