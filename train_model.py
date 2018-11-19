@@ -1,19 +1,17 @@
-from local_keyword_detection.utils import preprocess
+import os
+import tensorflow as tf
 import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D
 from keras.utils import to_categorical
-import tensorflow as tf
 
-import os
-
+from local_keyword_detection.utils import preprocess
 
 def train(PATH):
     # Import the wav files to mfcc vector
     preprocess.save_data_to_array()
     X_train, X_test, y_train, y_test = preprocess.get_train_test()
     numWords = len(os.listdir(PATH + '/data/'))
-    print(numWords)
 
     X_train = X_train.reshape(X_train.shape[0], 20, 11, 1)
     X_test = X_test.reshape(X_test.shape[0], 20, 11, 1)
