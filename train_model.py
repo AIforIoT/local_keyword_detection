@@ -25,11 +25,13 @@ def train(PATH):
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
     model.add(Dropout(0.25))
+    model.add(Dense(128, activation='relu'))
+    model.add(Dropout(0.25))
     model.add(Dense(numWords, activation='sigmoid'))
 
     model.compile(optimizer=keras.optimizers.Adadelta(), loss='binary_crossentropy', metrics=['accuracy']);
 
-    history = model.fit(X_train, y_train_hot, batch_size=100, epochs=200, verbose=1, validation_data=(X_test, y_test_hot))
+    history = model.fit(X_train, y_train_hot, batch_size=100, epochs=100, verbose=1, validation_data=(X_test, y_test_hot))
 
     # Serialize model to JSON
     model_json = model.to_json()
