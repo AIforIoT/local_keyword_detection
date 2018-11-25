@@ -51,7 +51,7 @@ def save_data_to_array(path=DATA_PATH, bin_path=DATA_BIN_PATH, max_len=11):
                 mfcc_vectors.append(mfcc)
                 np.save(bin_path + label + '.npy', mfcc_vectors)
 
-def get_train_test(bin_path=DATA_BIN_PATH, split_ratio=0.6, random_state=42):
+def get_train_test(bin_path=DATA_BIN_PATH, split_ratio=0.85, random_state=42):
     # Get available labels
     labels, indices = get_labels(DATA_PATH)
 
@@ -67,7 +67,7 @@ def get_train_test(bin_path=DATA_BIN_PATH, split_ratio=0.6, random_state=42):
 
     assert X.shape[0] == len(y)
 
-    return train_test_split(X, y, test_size= (1 - split_ratio), random_state=random_state, shuffle=True)
+    return train_test_split(X, y, test_size = (1 - split_ratio), random_state=random_state, shuffle=True)
 
 
 

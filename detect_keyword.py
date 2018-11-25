@@ -19,7 +19,7 @@ loaded_model = keras.models.model_from_json(loaded_model_json)
 
 # Load weights into new model
 loaded_model.load_weights(PATH +"/bin/model.h5")
-loaded_model.compile(optimizer=tf.train.AdamOptimizer(), loss='binary_crossentropy', metrics=['accuracy'])
+loaded_model.compile(optimizer=keras.optimizers.Adadelta(), loss='binary_crossentropy', metrics=['accuracy'])
 
 # Flask compatibility
 loaded_model._make_predict_function()
@@ -31,5 +31,5 @@ def detect(AUDIO_FILE):
 	sample_reshaped = sample.reshape(1, 20, 11, 1)
 
 	# Return word detected
-	return loaded_model.predict(sample_reshaped)
-	#return(preprocess.get_labels()[0][np.argmax(loaded_model.predict(sample_reshaped))])
+	print(loaded_model.predict(sample_reshaped))
+	return(preprocess.get_labels()[0][np.argmax(loaded_model.predict(sample_reshaped))])

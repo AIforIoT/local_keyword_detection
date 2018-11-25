@@ -25,8 +25,6 @@ def train(PATH):
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
     model.add(Dropout(0.25))
-    model.add(Dense(128, activation='relu'))
-    model.add(Dropout(0.25))
     model.add(Dense(numWords, activation='sigmoid'))
 
     model.compile(optimizer=keras.optimizers.Adadelta(), loss='binary_crossentropy', metrics=['accuracy']);
