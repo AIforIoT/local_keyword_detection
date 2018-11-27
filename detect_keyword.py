@@ -29,7 +29,13 @@ def detect(AUDIO_FILE):
 	# Getting the MFCC (resampled needed)
 	sample = preprocess.wav2mfcc(AUDIO_FILE)
 	sample_reshaped = sample.reshape(1, 20, 11, 1)
-
-	# Return word detected
-	print(loaded_model.predict(sample_reshaped))
-	return(preprocess.get_labels()[0][np.argmax(loaded_model.predict(sample_reshaped))])
+	
+	# Print the probabilites of each word
+	#print(loaded_model.predict(sample_reshaped))
+	
+	keyword = preprocess.get_labels()[0][np.argmax(loaded_model.predict(sample_reshaped))]
+	
+	if keyword is 'iouti':
+            return True
+        else:
+            return False
