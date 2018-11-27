@@ -26,16 +26,16 @@ loaded_model._make_predict_function()
 
 def detect(AUDIO_FILE):
 
-	# Getting the MFCC (resampled needed)
-	sample = preprocess.wav2mfcc(AUDIO_FILE)
-	sample_reshaped = sample.reshape(1, 20, 11, 1)
+    # Getting the MFCC (resampled needed)
+    sample = preprocess.wav2mfcc(AUDIO_FILE)
+    sample_reshaped = sample.reshape(1, 20, 11, 1)
 	
-	# Print the probabilites of each word
-	#print(loaded_model.predict(sample_reshaped))
-	
-	keyword = preprocess.get_labels()[0][np.argmax(loaded_model.predict(sample_reshaped))]
-	
-	if keyword is 'iouti':
-            return True
-        else:
-            return False
+    # Print the probabilites of each word
+    #print(loaded_model.predict(sample_reshaped))
+    
+    keyword = preprocess.get_labels()[0][np.argmax(loaded_model.predict(sample_reshaped))]
+
+    if keyword == 'iouti':
+        return True
+    else:
+        return False
