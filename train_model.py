@@ -21,15 +21,15 @@ def train(PATH):
     model = Sequential()
     model.add(Conv2D(32, kernel_size=(2, 2), activation='relu', input_shape=(20, 11, 1)))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
+    model.add(Dropout(0.5))
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
-    model.add(Dropout(0.25))
+    model.add(Dropout(0.5))
     model.add(Dense(numWords, activation='sigmoid'))
 
     model.compile(optimizer=keras.optimizers.Adadelta(), loss='binary_crossentropy', metrics=['accuracy']);
 
-    history = model.fit(X_train, y_train_hot, batch_size=100, epochs=100, verbose=1, validation_data=(X_test, y_test_hot))
+    history = model.fit(X_train, y_train_hot, batch_size=100, epochs=75, verbose=1, validation_data=(X_test, y_test_hot))
 
     # Serialize model to JSON
     model_json = model.to_json()
