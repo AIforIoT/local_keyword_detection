@@ -35,6 +35,8 @@ def detect(AUDIO_FILE):
     
     keyword = preprocess.get_labels()[0][np.argmax(loaded_model.predict(sample_reshaped))]
 
+    print(keyword)
+
     if keyword == 'iouti':
         return True
     else:
